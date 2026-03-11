@@ -1,4 +1,7 @@
 # easytier-web
+简介抄这个大佬的MajoSissi。
+MajoSissi的仓库地址：
+https://github.com/MajoSissi/easytier-docker?tab=readme-ov-file#docker-compose-%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95 
 
 完整版 ( Core组网 + Web控制台 )
 # Core + Web 控制台一体部署
