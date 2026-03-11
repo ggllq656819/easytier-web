@@ -14,7 +14,8 @@ RUN apk add --no-cache --virtual .dl-deps curl unzip && \
     rm -f /download.sh && \
     apk del .dl-deps
 
-COPY --chmod=755 scripts/run.sh /run.sh
+COPY scripts/run.sh /run.sh
+RUN sed -i 's/\r$//' /run.sh && chmod +x /run.sh
 
 RUN mkdir -p /app/data/config
 VOLUME /app/data
