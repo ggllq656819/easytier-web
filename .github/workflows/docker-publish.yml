@@ -6,12 +6,12 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: douniwan819/easytier
+  IMAGE_CORE: douniwan819/easytier
+  IMAGE_WEB: douniwan819/easytier-web
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     permissions:
       contents: read
       packages: write
@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and Push (multi-arch)
+      - name: Build & Push (core)
         uses: docker/build-push-action@v5
         with:
           context: .
@@ -40,6 +40,18 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_CORE }}:latest
+          build-args: |
+            VERSION=latest
+
+      - name: Build & Push (web-only)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/Dockerfile.web
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ${{ env.IMAGE_WEB }}:latest
           build-args: |
             VERSION=latest
