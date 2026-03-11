@@ -1,12 +1,6 @@
-# Core + Web 控制台一体部署
-# 镜像说明: https://hub.docker.com/r/majosissi/easytier
 services:
   easytier:
-    # 可选镜像
-    # majosissi/easytier:latest  最新 release 正式版
-    # majosissi/easytier:pre     最新 Pre-release 预览版
-    # majosissi/easytier:ci      最新 Action 持续集成构建版 (合并主线的版本, 自动更新, 稳定性不保证)
-    image: majosissi/easytier:latest
+    image: douniwan819/easytier-web
     container_name: easytier
     restart: always
     network_mode: host
@@ -49,3 +43,4 @@ services:
     # 如果启用了 Web 且设置了用户名, 不用设置 command, 直接用 Web 控制台管理
     # command 为 easytier-core 命令的参数
     # command: -i 10.126.126.1 --network-name my-network --network-secret my-secret -p 节点服务器
+
