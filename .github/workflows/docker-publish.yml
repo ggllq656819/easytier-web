@@ -20,6 +20,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Read VERSION
+        id: version
+        run: |
+          VER=$(cat VERSION)
+          echo "version=$VER" >> $GITHUB_OUTPUT
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -41,8 +47,9 @@ jobs:
           push: true
           tags: |
             ${{ env.IMAGE_CORE }}:latest
+            ${{ env.IMAGE_CORE }}:${{ steps.version.outputs.version }}
           build-args: |
-            VERSION=latest
+            VERSION=${{ steps.version.outputs.version }}
 
       - name: Build & Push (web-only)
         uses: docker/build-push-action@v5
@@ -53,5 +60,6 @@ jobs:
           push: true
           tags: |
             ${{ env.IMAGE_WEB }}:latest
+            ${{ env.IMAGE_WEB }}:${{ steps.version.outputs.version }}
           build-args: |
-            VERSION=latest
+            VERSION=${{ steps.version.outputs.version }}
