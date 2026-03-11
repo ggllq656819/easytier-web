@@ -8,8 +8,9 @@ RUN apk add --no-cache tzdata tini bash ca-certificates gcompat libgcc libstdc++
 
 COPY scripts/download.sh /download.sh
 RUN apk add --no-cache --virtual .dl-deps curl unzip && \
+    sed -i 's/\r$//' /download.sh && \
     chmod +x /download.sh && \
-    /download.sh "$VERSION" "$TARGETARCH" "$TARGETVARIANT" && \
+    /bin/bash /download.sh "$VERSION" "$TARGETARCH" "$TARGETVARIANT" && \
     rm -f /download.sh /usr/local/bin/easytier-core /usr/local/bin/easytier-cli && \
     apk del .dl-deps
 
