@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  easytier:
+    image: douniwan819/easytier:latest
+    container_name: easytier
+    network_mode: "host"
+    restart: unless-stopped
+    environment:
+      - WEB_ENABLE=true
+      - WEB_PORT=11211
+      - WEB_API_PORT=11211
+      - WEB_SERVER_PORT=22020
+      - WEB_SERVER_PROTOCOL=udp
+    volumes:
+      - ./data:/app/data
